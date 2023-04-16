@@ -32,7 +32,7 @@ int main()
     const uint32_t bins = 100;
     const uint32_t halfBins = bins * 0.5;
     uint32_t histogram[bins] = { 0 };
-    const double histogramScale = 1.0 / samples * 1000.0;
+    const double histogramScale = 1.0 / samples * 600.0;
     const double mean = 0;
     const double stddev = 1;
     int32_t seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
