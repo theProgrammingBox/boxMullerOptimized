@@ -3,7 +3,7 @@
 
 float InvSqrt(float number)
 {
-    long i = 0x5F1FFFF9 - (*(long*)&number >> 1);
+    uint32_t i = 0x5F1FFFF9 - (*(uint32_t*)&number >> 1);
     float tmp = *(float*)&i;
     return tmp * 0.703952253f * (2.38924456f - number * tmp * tmp);
 }
@@ -22,9 +22,7 @@ std::pair<float, float> marsaglia_polar(int32_t* seed)
         y = *seed * 4.6566128752457969e-10f;
         sqrMag = x * x + y * y;
     } while (sqrMag >= 1.0 || sqrMag == 0.0);
-
     float factor = InvSqrt(-0.5 * sqrMag / log(sqrMag));
-
     return std::make_pair(x * factor, y * factor);
 }
 
