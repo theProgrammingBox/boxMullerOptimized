@@ -8,27 +8,24 @@ float InvSqrt(float number)
     return tmp * 0.703952253f * (2.38924456f - number * tmp * tmp);
 }
 
-std::pair<double, double> marsaglia_polar(int32_t* seed)
+std::pair<float, float> marsaglia_polar(int32_t* seed)
 {
-    double x, y, sqrMag;
+    float x, y, sqrMag;
     do {
         *seed ^= *seed << 13;
         *seed ^= *seed >> 17;
         *seed ^= *seed << 5;
-        x = *seed * 4.6566128752457969e-10;
+        x = *seed * 4.6566128752457969e-10f;
         *seed ^= *seed << 13;
         *seed ^= *seed >> 17;
         *seed ^= *seed << 5;
-        y = *seed * 4.6566128752457969e-10;
+        y = *seed * 4.6566128752457969e-10f;
         sqrMag = x * x + y * y;
     } while (sqrMag >= 1.0 || sqrMag == 0.0);
 
-    double logSqrMag = std::log(sqrMag);
-    double factor = InvSqrt(-0.5 * sqrMag / logSqrMag);
-    double z1 = x * factor;
-    double z2 = y * factor;
+    float factor = InvSqrt(-0.5 * sqrMag / log(sqrMag));
 
-    return std::make_pair(z1, z2);
+    return std::make_pair(x * factor, y * factor);
 }
 
 int main()
